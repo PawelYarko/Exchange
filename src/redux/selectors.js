@@ -1,0 +1,1 @@
+export const getExchangeResult = (state) => state.data.result;
