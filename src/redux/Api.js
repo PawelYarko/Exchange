@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-const myHeaders = {'apikey': 'ui6A0QhCmCYEEN1trNzP54h4jY61TRhA'};
+const myHeaders = {'apikey': '72DRod1oCD1ZsfjUpNzZz1bvXPryngx0'};
 
 const requestOptions = {
     method: 'GET',
