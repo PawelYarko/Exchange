@@ -7,26 +7,30 @@ import { getRate } from '../../redux/selectors';         //, getUsdForUah, getEu
 import s from './App.module.css'
 
 export const App = () => {
-  const [fromAmount, setFromAmount] = useState(1);
-  const [toAmount, setToAmount] = useState(1);
+  const [fromAmount, setFromAmount] = useState('');
+  const [toAmount, setToAmount] = useState('');
   const [from, setFrom] = useState('USD');
   const [to, setTo] = useState('UAH');
-  const [rate, setRate] = useState('')
-  
+  const [amount, setAmount] = useState('');
+  const [result, setResult] = useState('')
 
-  
+  const exchangeResult = useSelector((state) => state.data.result); 
 
   const value = {
-    from: from,
-    to: to,   
-    amount: fromAmount,
+    from,
+    to,   
+    amount
   };
 
-  const reverseValue = {
-    from: to, 
-    to: from,
-    amount: toAmount,
-  };
+  useEffect(() =>{
+    setAmount(toAmount || fromAmount)
+  }, [toAmount, fromAmount])
+
+  // const reverseValue = {
+  //   from: to, 
+  //   to: from,
+  //   amount: toAmount,
+  // };
 
   // const usd = {to:'UAH', from:'USD', amount: 1};
   // const eur = {to:'UAH', from:'EUR', amount: 1};
@@ -40,50 +44,32 @@ export const App = () => {
 
 
   useEffect(() => {
-    dispatch(fetch(value));
+    if(from !== '' && to !== '' & amount !== ''){
+      dispatch(fetch(value));
+    }
+    if(exchangeResult){
+      setResult(exchangeResult);
+    }
+  }, [value]);
 
-    // setRate(exchangeResult)
-  }, []);
-
-  // const exchangeResult = useSelector((state) => state.data.info.rate); 
-  // if(exchangeResult){
-  //   setRate(exchangeResult);
-  // }
-
-
-  // useEffect(() => {
-  //   dispatch(fetch(value));
-  //   dispatch(fetch(reverseValue)); 
-  //   setFromAmount(exchangeResult);
-  //   setToAmount(exchangeResult);
-  // }, [value, reverseValue]);
-  
-
-  // const addValueForForm = e =>{
-  //   e.preventDefault();
-  //   dispatch(fetch(value));
-  //   dispatch(fetch(reverseValue));
-  //   setFromAmount(exchangeResult);
-  //   setToAmount(exchangeResult);   
-  // }
 
   const handleChangeToAmount = (toAmount) => {
-    setFromAmount(toAmount * rate / to);
+    setFromAmount(result);
     setToAmount(toAmount);
   }
 
   const handleChangeTo = (to) => {
-    setFromAmount(toAmount * rate / to);
+    setFromAmount(result);
     setTo(to);
   }
 
   const handleChangeFromAmount = (fromAmount) => {
-    setFromAmount(fromAmount * rate / from);
+    setToAmount(result);
     setFromAmount(fromAmount);
   }
 
   const handleChangeFrom = (from) => {
-    setFromAmount(fromAmount * rate / from);
+    setToAmount(result);
     setFrom(from);
   }
 
