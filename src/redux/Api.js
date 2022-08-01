@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-const myHeaders = {'apikey': '72DRod1oCD1ZsfjUpNzZz1bvXPryngx0'};
+const myHeaders = {'apikey': 'JJU10lLyT1oUUr30UOu8bBFoI8PnHa0o'};
 
 const requestOptions = {
     method: 'GET',
@@ -11,9 +11,9 @@ const requestOptions = {
  
 export const fetch = createAsyncThunk(
     'exchange/fetch',
-    async function ({to, from, toAmount}, { rejectWithValue }) {
+    async function ({to, from, amount}, { rejectWithValue }) {
       try {
-        const response = await axios.get(`https://api.apilayer.com/exchangerates_data/convert?to=${to}&from=${from}&amount=${toAmount}`, requestOptions);
+        const response = await axios.get(`https://api.apilayer.com/exchangerates_data/convert?to=${to}&from=${from}&amount=${amount}`, requestOptions);
         const data = await response.data;
         return data;
       } catch (error) {

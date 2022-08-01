@@ -1,0 +1,21 @@
+.form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.from{
+    margin-right: 20px;
+}
+
+
+.select{
+    width: 150px;
+    height: 50px;
+}
+
+.input{
+    width: 150px;
+    height: 45px;
+}
