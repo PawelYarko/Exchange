@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import From from '../From/From';
 import To from '../To/To';
 import { fetch } from '../../redux/Api';
-import { getRate } from '../../redux/selectors';         //, getUsdForUah, getEurForUah
+// import { getRate } from '../../redux/selectors';         //, getUsdForUah, getEurForUah
 import s from './App.module.css'
 
 export const App = () => {
@@ -11,78 +11,68 @@ export const App = () => {
   const [toAmount, setToAmount] = useState('');
   const [from, setFrom] = useState('USD');
   const [to, setTo] = useState('UAH');
-  const [amount, setAmount] = useState('');
-  const [result, setResult] = useState('')
+  const [rate, setRate] = useState('');
+  const [usd, setUsd] = useState('');
+  const [eur, setEur] = useState('');
 
-  const exchangeResult = useSelector((state) => state.data.result); 
+  const currentRate = useSelector((state) => state.data.conversion_rate); 
+  // const usdReq = {to:'USD', from:'UAH'};
+  // const eurReq = {to:'EUR', from:'UAH'};
 
-  const value = {
-    from,
-    to,   
-    amount
-  };
-
-  useEffect(() =>{
-    setAmount(toAmount || fromAmount)
-  }, [toAmount, fromAmount])
-
-  // const reverseValue = {
-  //   from: to, 
-  //   to: from,
-  //   amount: toAmount,
-  // };
-
-  // const usd = {to:'UAH', from:'USD', amount: 1};
-  // const eur = {to:'UAH', from:'EUR', amount: 1};
+  // const usdExchangeRate = useSelector((state) => state.data.conversion_rate);
+  // const eurExchangeRate = useSelector((state) => state.data.conversion_rate);
 
   const dispatch = useDispatch();
 
   // useEffect(() => {
-  //   dispatch(fetch(usd));
-  //   dispatch(fetch(eur)); 
+  //   dispatch(fetch(usdReq));
+  //   setUsd(usdExchangeRate)
+  //   dispatch(fetch(eurReq));
+  //   setEur(eurExchangeRate) 
+  //   console.log(usd, eur)
   // }, []);
 
 
   useEffect(() => {
-    if(from !== '' && to !== '' & amount !== ''){
-      dispatch(fetch(value));
-    }
-    if(exchangeResult){
-      setResult(exchangeResult);
-    }
-  }, [value]);
-
-
-  const handleChangeToAmount = (toAmount) => {
-    setFromAmount(result);
-    setToAmount(toAmount);
-  }
-
-  const handleChangeTo = (to) => {
-    setFromAmount(result);
+    dispatch(fetch({to, from}));
     setTo(to);
+    setFrom(from);
+  }, [to, from, toAmount, fromAmount]);
+
+  useEffect(()=>{
+    setRate(currentRate);
+  },[ currentRate ])
+
+  const formatResult = (number) =>{
+    return number.toFixed(3)
   }
 
   const handleChangeFromAmount = (fromAmount) => {
-    setToAmount(result);
-    setFromAmount(fromAmount);
+    setToAmount(formatResult(Number(fromAmount) / rate));
+    setFromAmount(Number(fromAmount));
   }
 
   const handleChangeFrom = (from) => {
-    setToAmount(result);
+    setToAmount(formatResult(Number(fromAmount) * rate));
     setFrom(from);
   }
 
+  const handleChangeToAmount = (toAmount) => {
+    setFromAmount(formatResult(Number(toAmount) * rate)); 
+    setToAmount(Number(toAmount));
+  }
 
-  // const usdExchangeRate = useSelector(getUsdForUah);
-  // const eurExchangeRate = useSelector(getEurForUah);
+  const handleChangeTo = (to) => {
+    setFromAmount(formatResult(Number(toAmount) * rate));
+    setTo(to);
+  }
 
   return (
     <>
-    {/* <header>
-      <p>USD {usdExchangeRate} {usd.to}</p>
-      <p>EUR {eurExchangeRate} {eur.to}</p>
-    </header> */}
+    <header>
+      {/* <p>USD {usdExchangeRate}</p>
+      <p>EUR {eurExchangeRate}</p> */}
+    </header>
     <From
       handleChangeFromAmount = {handleChangeFromAmount}
       handleChangeFrom = {handleChangeFrom}
