@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import From from '../From/From';
 import To from '../To/To';
+import Header from '../Header/Header';
 import { fetch } from '../../redux/Api';
-// import { getRate } from '../../redux/selectors';         //, getUsdForUah, getEurForUah
+import { getRate } from '../../redux/selectors';         
 import s from './App.module.css'
 
 export const App = () => {
@@ -12,26 +13,10 @@ export const App = () => {
   const [from, setFrom] = useState('USD');
   const [to, setTo] = useState('UAH');
   const [rate, setRate] = useState('');
-  const [usd, setUsd] = useState('');
-  const [eur, setEur] = useState('');
-
-  const currentRate = useSelector((state) => state.data.conversion_rate); 
-  // const usdReq = {to:'USD', from:'UAH'};
-  // const eurReq = {to:'EUR', from:'UAH'};
-
-  // const usdExchangeRate = useSelector((state) => state.data.conversion_rate);
-  // const eurExchangeRate = useSelector((state) => state.data.conversion_rate);
+ 
+  const currentRate = useSelector(getRate); 
 
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(fetch(usdReq));
-  //   setUsd(usdExchangeRate)
-  //   dispatch(fetch(eurReq));
-  //   setEur(eurExchangeRate) 
-  //   console.log(usd, eur)
-  // }, []);
-
 
   useEffect(() => {
     dispatch(fetch({to, from}));
@@ -69,10 +54,7 @@ export const App = () => {
 
   return (
     <>
-    <header>
-      {/* <p>USD {usdExchangeRate}</p>
-      <p>EUR {eurExchangeRate}</p> */}
-    </header>
+    <Header/>
     <From
       handleChangeFromAmount = {handleChangeFromAmount}
       handleChangeFrom = {handleChangeFrom}
