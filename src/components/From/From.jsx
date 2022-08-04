@@ -1,6 +1,13 @@
+import * as React from 'react';
 import s from '../App/App.module.css';
 
 const From = ({handleChangeFromAmount, handleChangeFrom, select, amount}) =>{
+    // const options = [
+    //     { code: 'UA', label: 'UAH' },
+    //     { code: 'US', label: 'USD' },
+    //     { code: 'EU', label: 'EUR' },
+    //     { code: 'PL', label: 'ZL' },
+    // ]
     return(
         <>
         <div className={s.from}>

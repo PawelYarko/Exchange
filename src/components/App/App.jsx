@@ -5,7 +5,7 @@ import To from '../To/To';
 import Header from '../Header/Header';
 import { fetch } from '../../redux/Api';
 import { getRate } from '../../redux/selectors';         
-import s from './App.module.css'
+import s from './App.module.css';
 
 export const App = () => {
   const [fromAmount, setFromAmount] = useState('');
@@ -29,7 +29,7 @@ export const App = () => {
   },[ currentRate ])
 
   const formatResult = (number) =>{
-    return number.toFixed(3)
+    return number.toFixed(3);
   }
 
   const handleChangeFromAmount = (fromAmount) => {
