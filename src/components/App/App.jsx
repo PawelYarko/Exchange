@@ -53,7 +53,7 @@ export const App = () => {
   }
 
   return (
-    <>
+    <div className={s.container}>
     <Header/>
     <From
       handleChangeFromAmount = {handleChangeFromAmount}
@@ -67,6 +67,6 @@ export const App = () => {
       amount = {toAmount}
       select = {to}
     />
-    </>
+    </div>
   );
 };

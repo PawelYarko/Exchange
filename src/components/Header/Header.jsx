@@ -21,9 +21,16 @@ const Header = () =>{
 
     return(
         <>
-    <header>
-      <p>USD {usd}</p>
-      <p>EUR {eur}</p>
+    <header className={s.header}>
+      <h1 className={s.title}>Exchange</h1>
+      <div className={s.rates}>
+        <p className={s.rate}>
+          <img src="https://countryflagsapi.com/png/us" alt="The United States Of America flag" className={s.flag}/>
+          <span>USD {usd} ₴</span></p>
+        <p className={s.rate}>
+          <img src="https://countryflagsapi.com/png/eu" alt="European Union flag" className={s.flag}/>
+          <span className={s.label}>EUR {eur} ₴</span></p>
+      </div>
     </header>
         </>
     );
