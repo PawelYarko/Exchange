@@ -22,7 +22,7 @@ export const App = () => {
     dispatch(fetch({to, from}));
     setTo(to);
     setFrom(from);
-  }, [to, from, toAmount, fromAmount]);
+  }, [to, from, toAmount, fromAmount, dispatch]);
 
   useEffect(()=>{
     setRate(currentRate);
