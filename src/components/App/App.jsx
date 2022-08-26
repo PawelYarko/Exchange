@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import From from '../From/From';
 import To from '../To/To';
 import Header from '../Header/Header';
+import FromLogin from '../FromLogin/FromLogin';
 import { fetch } from '../../redux/Api';
 import { getRate } from '../../redux/selectors';         
 import s from './App.module.css';
@@ -55,6 +56,7 @@ export const App = () => {
   return (
     <div className={s.container}>
     <Header/>
+    <FromLogin/>
     <From
       handleChangeFromAmount = {handleChangeFromAmount}
       handleChangeFrom = {handleChangeFrom}
